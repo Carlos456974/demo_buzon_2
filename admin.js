@@ -8,7 +8,6 @@ const CATEGORIAS = [
   "Queja general"
 ];
 
-// Demo inicial con 4 quejas
 const quejasDemo = [
   {
     folio: "Q-0001",
@@ -48,7 +47,10 @@ const quejasDemo = [
   }
 ];
 
-// Carga quejas desde localStorage o crea demo
+// Variables globales para estado
+let quejas = [];
+let quejaSeleccionada = null;
+
 function cargarQuejas() {
   let q = JSON.parse(localStorage.getItem("quejas"));
   if (!q || q.length === 0) {
@@ -58,18 +60,18 @@ function cargarQuejas() {
   return q;
 }
 
-// Guarda quejas en localStorage
-function guardarQuejas(quejas) {
-  localStorage.setItem("quejas", JSON.stringify(quejas));
+function guardarQuejas(data) {
+  localStorage.setItem("quejas", JSON.stringify(data));
 }
 
-// Crea tabla para las quejas recibidas
-function crearTablaQuejas(quejas) {
+function crearTablaSimple(quejasFiltradas) {
   const tabla = document.createElement("table");
+  tabla.style.marginBottom = "20px";
+
   const thead = document.createElement("thead");
   const filaHead = document.createElement("tr");
 
-  ["Folio", "Descripción", "Nombre", "Fecha", "Estatus", "Comentarios", "Acciones"].forEach(texto => {
+  ["Folio", "Fecha", "Estatus", "Ver Detalles"].forEach(texto => {
     const th = document.createElement("th");
     th.textContent = texto;
     filaHead.appendChild(th);
@@ -79,10 +81,11 @@ function crearTablaQuejas(quejas) {
 
   const tbody = document.createElement("tbody");
 
-  quejas.forEach((q, idx) => {
+  quejasFiltradas.forEach(q => {
     const tr = document.createElement("tr");
     if (q.categoria === "Violencia de género") {
-      tr.classList.add("violencia");
+      tr.style.backgroundColor = "#ff6666";
+      tr.style.color = "#000";
     }
 
     // Folio
@@ -90,69 +93,27 @@ function crearTablaQuejas(quejas) {
     tdFolio.textContent = q.folio;
     tr.appendChild(tdFolio);
 
-    // Descripción
-    const tdDescripcion = document.createElement("td");
-    tdDescripcion.textContent = q.descripcion;
-    tr.appendChild(tdDescripcion);
-
-    // Nombre
-    const tdNombre = document.createElement("td");
-    tdNombre.textContent = q.nombre || "Anónimo";
-    tr.appendChild(tdNombre);
-
     // Fecha
     const tdFecha = document.createElement("td");
     tdFecha.textContent = q.fecha;
     tr.appendChild(tdFecha);
 
-    // Estatus (select editable)
+    // Estatus
     const tdEstatus = document.createElement("td");
-    const select = document.createElement("select");
-    ESTATUS.forEach(e => {
-      const option = document.createElement("option");
-      option.value = e;
-      option.textContent = e;
-      if (q.estatus === e) option.selected = true;
-      select.appendChild(option);
-    });
-    tdEstatus.appendChild(select);
+    tdEstatus.textContent = q.estatus;
     tr.appendChild(tdEstatus);
 
-    // Comentarios (textarea editable)
-    const tdComentarios = document.createElement("td");
-    const textarea = document.createElement("textarea");
-    textarea.value = q.comentarios || "";
-    textarea.rows = 3;
-    tdComentarios.appendChild(textarea);
-    tr.appendChild(tdComentarios);
-
-    // Acciones (botón guardar)
-    const tdAcciones = document.createElement("td");
-    const btnGuardar = document.createElement("button");
-    btnGuardar.textContent = "Guardar";
-    btnGuardar.className = "guardar";
-
-    btnGuardar.addEventListener("click", () => {
-      // Validación violencia género: nombre obligatorio
-      if (q.categoria === "Violencia de género" && (!q.nombre || q.nombre.trim() === "")) {
-        alert("Para quejas de Violencia de género el nombre es obligatorio.");
-        return;
-      }
-      // Actualizar datos
-      q.estatus = select.value;
-      q.comentarios = textarea.value.trim();
-
-      // Guardar cambios
-      const quejas = cargarQuejas();
-      quejas[idx] = q;
-      guardarQuejas(quejas);
-
-      alert("Queja actualizada correctamente.");
-      mostrarQuejas();
+    // Ver detalles (botón)
+    const tdAccion = document.createElement("td");
+    const btnDetalle = document.createElement("button");
+    btnDetalle.textContent = "Ver detalles";
+    btnDetalle.className = "guardar";
+    btnDetalle.style.padding = "4px 10px";
+    btnDetalle.addEventListener("click", () => {
+      abrirDetalle(q.folio);
     });
-
-    tdAcciones.appendChild(btnGuardar);
-    tr.appendChild(tdAcciones);
+    tdAccion.appendChild(btnDetalle);
+    tr.appendChild(tdAccion);
 
     tbody.appendChild(tr);
   });
@@ -161,12 +122,9 @@ function crearTablaQuejas(quejas) {
   return tabla;
 }
 
-// Mostrar quejas agrupadas por estatus y categoría
 function mostrarQuejas() {
   const contenedor = document.getElementById("contenidoAdmin");
   contenedor.innerHTML = "";
-
-  const quejas = cargarQuejas();
 
   ESTATUS.forEach(status => {
     const seccion = document.createElement("div");
@@ -177,14 +135,14 @@ function mostrarQuejas() {
     seccion.appendChild(titulo);
 
     CATEGORIAS.forEach(cat => {
-      const qFiltradas = quejas.filter(q => q.estatus === status && q.categoria === cat);
-      if (qFiltradas.length > 0) {
+      const filtradas = quejas.filter(q => q.estatus === status && q.categoria === cat);
+      if (filtradas.length > 0) {
         const tituloCat = document.createElement("div");
         tituloCat.classList.add("categoria");
         tituloCat.textContent = cat;
         seccion.appendChild(tituloCat);
 
-        const tabla = crearTablaQuejas(qFiltradas);
+        const tabla = crearTablaSimple(filtradas);
         seccion.appendChild(tabla);
       }
     });
@@ -193,12 +151,71 @@ function mostrarQuejas() {
   });
 }
 
-// Validar sesión simple
+// Abrir detalle editable
+function abrirDetalle(folio) {
+  quejaSeleccionada = quejas.find(q => q.folio === folio);
+  if (!quejaSeleccionada) return;
+
+  document.getElementById("folioDetalle").textContent = folio;
+  document.getElementById("categoriaDetalle").textContent = quejaSeleccionada.categoria;
+  document.getElementById("fechaDetalle").textContent = quejaSeleccionada.fecha;
+  document.getElementById("descripcionDetalle").textContent = quejaSeleccionada.descripcion;
+
+  // Nombre (input)
+  document.getElementById("nombreDetalle").value = quejaSeleccionada.nombre || "";
+
+  // Estatus (select)
+  document.getElementById("estatusDetalle").value = quejaSeleccionada.estatus;
+
+  // Comentarios (textarea)
+  document.getElementById("comentariosDetalle").value = quejaSeleccionada.comentarios || "";
+
+  document.getElementById("detalleQueja").style.display = "block";
+  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+}
+
+// Guardar cambios con confirmación
+document.getElementById("btnGuardarDetalle").addEventListener("click", () => {
+  if (!quejaSeleccionada) return;
+
+  // Validación violencia género: nombre obligatorio
+  const nombreVal = document.getElementById("nombreDetalle").value.trim();
+  if (quejaSeleccionada.categoria === "Violencia de género" && nombreVal === "") {
+    alert("Para quejas de Violencia de género el nombre es obligatorio.");
+    return;
+  }
+
+  if (!confirm("¿Estás seguro de guardar los cambios?")) {
+    return;
+  }
+
+  quejaSeleccionada.nombre = nombreVal;
+  quejaSeleccionada.estatus = document.getElementById("estatusDetalle").value;
+  quejaSeleccionada.comentarios = document.getElementById("comentariosDetalle").value.trim();
+
+  // Actualizar en localStorage
+  const index = quejas.findIndex(q => q.folio === quejaSeleccionada.folio);
+  quejas[index] = quejaSeleccionada;
+  guardarQuejas(quejas);
+
+  alert("Cambios guardados correctamente.");
+
+  mostrarQuejas();
+  document.getElementById("detalleQueja").style.display = "none";
+});
+
+// Botón cerrar detalles sin guardar
+document.getElementById("btnCerrarDetalle").addEventListener("click", () => {
+  document.getElementById("detalleQueja").style.display = "none";
+  quejaSeleccionada = null;
+});
+
 window.addEventListener("load", () => {
   if (localStorage.getItem("adminLogueado") !== "true") {
     alert("No autorizado. Por favor, inicia sesión.");
     window.location.href = "login.html";
     return;
   }
+  quejas = cargarQuejas();
   mostrarQuejas();
 });
