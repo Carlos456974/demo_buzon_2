@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Buzón de Quejas - DSG Transportes</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="logo-container">
+      <img src="logo.jpg" alt="Logo DSG Transportes" />
+    </div>
+    <h1>Buzón de Quejas - DSG Transportes</h1>
+    <form id="formulario">
+      <label for="categoria">Categoría de la queja</label>
+      <select id="categoria" name="categoria" required>
+        <option value="" disabled selected>Selecciona una categoría</option>
+        <option value="Violencia de género">Violencia de género</option>
+        <option value="Maltrato de jefe">Maltrato de jefe</option>
+        <option value="Problema con compañero">Problema con compañero</option>
+        <option value="Queja general">Queja general</option>
+      </select>
+
+      <label>¿Deseas que la denuncia sea anónima?</label>
+      <select name="anonimo" required>
+        <option value="" disabled selected>Selecciona opción</option>
+        <option value="sí">Sí</option>
+        <option value="no">No</option>
+      </select>
+
+      <label for="nombre">Nombre (si no es anónimo)</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" />
+
+      <label for="descripcion">Descripción de la queja</label>
+      <textarea id="descripcion" name="descripcion" placeholder="Escribe los detalles de la queja" required></textarea>
+
+      <label>
+        <input type="checkbox" name="aviso" required />
+        Acepto el <a href="aviso.html" target="_blank">Aviso de Privacidad</a>
+      </label>
+
+      <button type="submit">Enviar Queja</button>
+    </form>
+
+    <div id="confirmation"></div>
+  </div>
+
+  <footer>
+    <a href="aviso.html" target="_blank">Aviso de Privacidad</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
