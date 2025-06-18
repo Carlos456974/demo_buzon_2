@@ -6,7 +6,20 @@
   <title>Panel de Administración</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Estilos internos para los detalles y secciones */
+    .btn-cerrar-sesion {
+      display: inline-block;
+      margin-bottom: 20px;
+      background: #aad4ff;
+      color: #003366;
+      padding: 8px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .btn-cerrar-sesion:hover {
+      background: #8bbde6;
+      color: #001F4D;
+    }
     .seccion-quejas {
       margin-bottom: 30px;
     }
@@ -14,6 +27,13 @@
       border-bottom: 2px solid #aad4ff;
       padding-bottom: 5px;
       margin-bottom: 15px;
+      color: #aad4ff;
+    }
+    .categoria {
+      font-weight: bold;
+      font-size: 15px;
+      margin-bottom: 5px;
+      color: #aad4ff;
     }
     table {
       width: 100%;
@@ -51,25 +71,9 @@
     button.guardar:hover {
       background-color: #8bbde6;
     }
-    .btn-cerrar-sesion {
-      display: inline-block;
-      margin-bottom: 20px;
-      background: #aad4ff;
-      color: #003366;
-      padding: 8px 15px;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .btn-cerrar-sesion:hover {
-      background: #8bbde6;
-      color: #001F4D;
-    }
-    .categoria {
-      font-weight: bold;
-      font-size: 15px;
-      margin-bottom: 5px;
-      color: #aad4ff;
+    tr.violencia {
+      background-color: #ff6666;
+      color: #000;
     }
   </style>
 </head>
@@ -83,9 +87,7 @@
 
     <a href="index.html" class="btn-cerrar-sesion">Cerrar Sesión</a>
 
-    <div id="contenidoAdmin">
-      <!-- Aquí se cargarán las quejas agrupadas -->
-    </div>
+    <div id="contenidoAdmin"></div>
   </div>
 
   <footer>
