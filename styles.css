@@ -40,22 +40,6 @@ h1, h2 {
   color: #aad4ff;
 }
 
-.nav-links {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.nav-links a {
-  color: #aad4ff;
-  text-decoration: none;
-  margin: 0 10px;
-  font-weight: bold;
-}
-
-.nav-links a:hover {
-  text-decoration: underline;
-}
-
 label {
   display: block;
   margin-bottom: 5px;
@@ -105,12 +89,13 @@ footer {
 }
 
 footer a {
-  color: #aad4ff;
+  color: #aad4ff; /* color base */
   text-decoration: none;
   margin: 0 10px;
 }
 
 footer a:hover {
+  color: #7ec0ee; /* azul celeste legible en hover, en vez de morado */
   text-decoration: underline;
 }
 
