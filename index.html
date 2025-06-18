@@ -7,11 +7,10 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="logo-container">
-    <img src="logo.jpg" alt="Logo de la Empresa" />
-  </div>
-
   <div class="container">
+    <div class="logo-container">
+      <img src="logo.jpg" alt="Logo" />
+    </div>
     <h1>Buzón de Quejas</h1>
     <form id="formulario">
       <label for="categoria">Categoría de la queja</label>
@@ -23,22 +22,15 @@
         <option value="Queja general">Queja general</option>
       </select>
 
-      <label>¿Deseas que la denuncia sea anónima?</label>
-      <select name="anonimo" required>
-        <option value="" disabled selected>Selecciona opción</option>
-        <option value="sí">Sí</option>
-        <option value="no">No</option>
-      </select>
-
-      <label for="nombre">Nombre (si no es anónimo)</label>
+      <label for="nombre">Nombre (opcional, pero necesario si no quieres ser anónimo)</label>
       <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" />
 
       <label for="descripcion">Descripción de la queja</label>
       <textarea id="descripcion" name="descripcion" placeholder="Escribe los detalles de la queja" required></textarea>
 
-      <label>
+      <label style="color: #aad4ff; font-weight: normal;">
         <input type="checkbox" name="aviso" required />
-        Acepto el <a href="aviso.html" target="_blank">Aviso de Privacidad</a>
+        Acepto el aviso de privacidad
       </label>
 
       <button type="submit">Enviar Queja</button>
@@ -49,7 +41,8 @@
 
   <footer>
     <a href="aviso.html" target="_blank">Aviso de Privacidad</a> |
-    <a href="login.html">Acceso administrador</a>
+    <a href="login.html">Panel Administrador</a> |
+    <a href="consulta.html">Consulta tu Queja</a>
   </footer>
 
   <script src="script.js"></script>
