@@ -6,6 +6,7 @@
   <title>Panel de Administración</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
+    /* Tus estilos actuales */
     .btn-cerrar-sesion {
       display: inline-block;
       margin-bottom: 20px;
@@ -48,16 +49,6 @@
       vertical-align: top;
       font-size: 14px;
     }
-    td textarea, td select {
-      width: 100%;
-      font-size: 13px;
-      padding: 4px;
-      border-radius: 5px;
-      border: none;
-      resize: vertical;
-      background: #002a55;
-      color: #fff;
-    }
     button.guardar {
       background-color: #aad4ff;
       border: none;
@@ -75,6 +66,38 @@
       background-color: #ff6666;
       color: #000;
     }
+
+    /* Nuevo: detalles de la queja */
+    #detalleQueja {
+      display: none;
+      background: #002a55;
+      color: #aad4ff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 30px;
+    }
+    #detalleQueja label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    #detalleQueja input[type="text"],
+    #detalleQueja select,
+    #detalleQueja textarea {
+      width: 100%;
+      padding: 6px;
+      border-radius: 5px;
+      border: none;
+      background: #002a55;
+      color: #aad4ff;
+      font-size: 14px;
+      resize: vertical;
+      margin-top: 4px;
+    }
+    #detalleQueja button {
+      margin-top: 15px;
+      margin-right: 10px;
+    }
   </style>
 </head>
 <body>
@@ -88,6 +111,31 @@
     <a href="index.html" class="btn-cerrar-sesion">Cerrar Sesión</a>
 
     <div id="contenidoAdmin"></div>
+
+    <!-- Contenedor para detalles y edición -->
+    <div id="detalleQueja">
+      <h2>Detalle de la Queja <span id="folioDetalle"></span></h2>
+      <p><strong>Categoría:</strong> <span id="categoriaDetalle"></span></p>
+      <p><strong>Fecha:</strong> <span id="fechaDetalle"></span></p>
+      <p><strong>Descripción:</strong></p>
+      <p id="descripcionDetalle" style="background:#003366; padding:10px; border-radius:5px;"></p>
+
+      <label for="nombreDetalle">Nombre:</label>
+      <input type="text" id="nombreDetalle" />
+
+      <label for="estatusDetalle">Estatus:</label>
+      <select id="estatusDetalle">
+        <option value="Pendiente de revisión">Pendiente de revisión</option>
+        <option value="En revisión">En revisión</option>
+        <option value="Finalizada">Finalizada</option>
+      </select>
+
+      <label for="comentariosDetalle">Comentarios:</label>
+      <textarea id="comentariosDetalle" rows="4"></textarea>
+
+      <button id="btnGuardarDetalle" class="guardar">Guardar Cambios</button>
+      <button id="btnCerrarDetalle" class="guardar" style="background:#888; color:#eee;">Cerrar</button>
+    </div>
   </div>
 
   <footer>
