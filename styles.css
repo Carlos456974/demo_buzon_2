@@ -1,0 +1,150 @@
+/* Estilos generales */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #001F4D; /* azul marino */
+  color: #fff;
+}
+
+.container {
+  max-width: 600px;
+  background-color: #003366;
+  margin: 120px auto 80px auto;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.7);
+  position: relative;
+}
+
+.logo-container {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: transparent;
+  padding: 0;
+  width: 150px;
+  height: auto;
+}
+
+.logo-container img {
+  width: 150px;
+  display: block;
+  margin: 0 auto;
+}
+
+h1, h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #aad4ff;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+button {
+  background-color: #aad4ff;
+  border: none;
+  color: #003366;
+  padding: 10px 15px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #8bbde6;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  background: #001F4D;
+  color: #aad4ff;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 14px;
+  z-index: 1000;
+}
+
+footer a {
+  color: #aad4ff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Tabla para panel */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background: #003366;
+  color: #fff;
+  font-size: 14px;
+}
+
+th, td {
+  border: 1px solid #aad4ff;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #002244;
+}
+
+tr:nth-child(even) {
+  background-color: #002a55;
+}
+
+tr.violencia {
+  background-color: #ff6666 !important;
+  color: #000;
+}
+
+/* Inputs para admin */
+textarea.comentarioAdmin {
+  width: 100%;
+  font-size: 13px;
+}
+
+select.estatusSelect {
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+/* Mensaje de confirmación */
+#confirmation {
+  background-color: #aad4ff;
+  color: #003366;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+  display: none;
+  text-align: center;
+}
