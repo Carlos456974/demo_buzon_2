@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consultar Estatus de Denuncia</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="logo-container">
+      <img src="logo.jpg" alt="Logo Buzón de Denuncias" />
+    </div>
+    <h1>Consulta tu Denuncia</h1>
+    <form id="consultaForm">
+      <label for="folio">Ingresa tu folio:</label>
+      <input type="text" id="folio" name="folio" required>
+      <button type="submit">Consultar</button>
+    </form>
+
+    <div id="resultado" style="display: none; margin-top: 20px;"></div>
+
+    <a href="aviso.html" class="aviso-link">Aviso de privacidad</a>
+  </div>
+
+  <script>
+    document.getElementById("consultaForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const folio = document.getElementById("folio").value.trim();
+      const denuncias = JSON.parse(localStorage.getItem("denuncias") || "[]");
+      const resultado = document.getElementById("resultado");
+
+      const denuncia = denuncias.find(d => d.folio.toString() === folio);
+
+      if (denuncia) {
+        resultado.innerHTML = `
+          <p><strong>Folio:</strong> ${denuncia.folio}</p>
+          <p><strong>Fecha:</strong> ${denuncia.fecha}</p>
+          <p><strong>Categoría:</strong> ${denuncia.categoria}</p>
+          <p><strong>Descripción:</strong> ${denuncia.descripcion}</p>
+          <p><strong>Estatus:</strong> ${denuncia.status}</p>
+          <p><strong>Comentarios:</strong><br>${(denuncia.comentarios || []).join("<br>") || "Sin comentarios aún."}</p>
+        `;
+      } else {
+        resultado.innerHTML = "<p style='color: red;'>No se encontró ninguna denuncia con ese folio.</p>";
+      }
+
+      resultado.style.display = "block";
+    });
+  </script>
+</body>
+</html>
