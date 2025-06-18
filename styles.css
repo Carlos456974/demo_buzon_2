@@ -9,12 +9,12 @@ body {
 .container {
   max-width: 600px;
   background-color: #003366;
-  margin: 100px auto 80px auto; /* Ajustado para mejor acomodo del logo */
-  padding: 100px 30px 30px 30px; /* Padding top para que el logo no tape contenido */
+  margin: 100px auto 80px auto;
+  padding: 100px 30px 30px 30px;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0,0,0,0.7);
   position: relative;
-  min-height: 400px; /* Opcional para dar espacio mínimo */
+  min-height: 400px;
 }
 
 .logo-container {
@@ -46,7 +46,7 @@ label {
   font-weight: bold;
 }
 
-input[type=text], select, textarea {
+input[type=text], input[type=password], select, textarea {
   width: 100%;
   padding: 8px;
   margin-bottom: 15px;
@@ -70,10 +70,25 @@ button {
   cursor: pointer;
   width: 100%;
   font-size: 16px;
+  margin-top: 10px;
 }
 
 button:hover {
   background-color: #8bbde6;
+}
+
+/* Enlaces (visibles sobre fondo oscuro) */
+a {
+  color: #aad4ff;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #aad4ff;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 footer {
@@ -89,13 +104,12 @@ footer {
 }
 
 footer a {
-  color: #aad4ff; /* color base */
+  color: #aad4ff;
   text-decoration: none;
   margin: 0 10px;
 }
 
 footer a:hover {
-  color: #7ec0ee; /* azul celeste legible en hover, en vez de morado */
   text-decoration: underline;
 }
 
@@ -151,3 +165,4 @@ select.estatusSelect {
   display: none;
   text-align: center;
 }
+
