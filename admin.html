@@ -3,30 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Panel de Administración - DSG Transportes</title>
+  <title>Panel de Administración</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="container" style="max-width: 900px; margin-top: 100px;">
+  <div class="container">
     <div class="logo-container">
-      <img src="logo.jpg" alt="Logo DSG Transportes" />
+      <img src="logo.jpg" alt="Logo" />
     </div>
-    <h1>Panel de Administración</h1>
-    <button id="logoutBtn" style="margin-bottom: 15px; width: 120px;">Cerrar sesión</button>
 
-    <table>
+    <h1>Panel de Administración</h1>
+
+    <nav class="nav-links">
+      <a href="index.html">Enviar Queja</a> |
+      <a href="consulta.html">Consultar Queja</a>
+    </nav>
+
+    <table id="tablaDenuncias">
       <thead>
         <tr>
           <th>Folio</th>
-          <th>Fecha</th>
           <th>Categoría</th>
           <th>Descripción</th>
-          <th>Anónima</th>
+          <th>Nombre</th>
+          <th>Fecha</th>
           <th>Estatus</th>
-          <th>Comentarios Administrador</th>
+          <th>Comentarios</th>
+          <th>Acciones</th>
         </tr>
       </thead>
-      <tbody id="denunciasTableBody"></tbody>
+      <tbody>
+        <!-- Aquí se cargarán las quejas -->
+      </tbody>
     </table>
   </div>
 
