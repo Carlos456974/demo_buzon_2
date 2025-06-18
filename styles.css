@@ -12,7 +12,7 @@ body {
   margin: 100px auto 80px auto;
   padding: 100px 30px 30px 30px;
   border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.7);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
   position: relative;
   min-height: 400px;
 }
@@ -46,13 +46,10 @@ label {
   font-weight: bold;
 }
 
-input[type=text],
-input[type=password],
-select,
-textarea {
+input[type="text"], input[type="password"], select, textarea {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 20px; /* Aumentado para más separación */
+  padding: 8px;
+  margin-bottom: 15px;
   border-radius: 5px;
   border: none;
   font-size: 14px;
@@ -73,26 +70,13 @@ button {
   cursor: pointer;
   width: 100%;
   font-size: 16px;
-  margin-top: 10px;
 }
 
 button:hover {
   background-color: #8bbde6;
 }
 
-/* Enlaces bien visibles */
-a,
-a:visited,
-a:active {
-  color: #aad4ff !important; /* Azul claro legible */
-  text-decoration: none;
-}
-
-a:hover {
-  color: #ffffff !important;
-  text-decoration: underline;
-}
-
+/* Footer con enlaces destacados */
 footer {
   text-align: center;
   padding: 10px;
