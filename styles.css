@@ -46,10 +46,13 @@ label {
   font-weight: bold;
 }
 
-input[type=text], input[type=password], select, textarea {
+input[type=text],
+input[type=password],
+select,
+textarea {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 15px;
+  padding: 10px;
+  margin-bottom: 20px; /* Aumentado para más separación */
   border-radius: 5px;
   border: none;
   font-size: 14px;
@@ -77,17 +80,16 @@ button:hover {
   background-color: #8bbde6;
 }
 
-/* Enlaces (visibles sobre fondo oscuro) */
-a {
-  color: #aad4ff;
+/* Enlaces bien visibles */
+a,
+a:visited,
+a:active {
+  color: #aad4ff !important; /* Azul claro legible */
   text-decoration: none;
 }
 
-a:visited {
-  color: #aad4ff;
-}
-
 a:hover {
+  color: #ffffff !important;
   text-decoration: underline;
 }
 
@@ -165,4 +167,3 @@ select.estatusSelect {
   display: none;
   text-align: center;
 }
-
