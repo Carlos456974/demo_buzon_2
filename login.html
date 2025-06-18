@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ingreso Administrador - Buzón de Denuncias</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container" style="max-width: 400px; margin-top: 150px;">
+    <div class="logo-container">
+      <img src="logo.jpg" alt="Logo Buzón de Denuncias" />
+    </div>
+    <h1>Ingreso Administrador</h1>
+    <form id="loginForm">
+      <label for="usuario">Usuario</label>
+      <input type="text" id="usuario" name="usuario" required />
+
+      <label for="contrasena">Contraseña</label>
+      <input type="password" id="contrasena" name="contrasena" required />
+
+      <button type="submit">Ingresar</button>
+    </form>
+    <a href="aviso.html" class="aviso-link">Aviso de privacidad</a>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const usuario = document.getElementById("usuario").value.trim();
+      const contrasena = document.getElementById("contrasena").value.trim();
+
+      if (usuario === "admin" && contrasena === "admin123") {
+        localStorage.setItem("adminLogueado", "true");
+        window.location.href = "admin.html";
+      } else {
+        alert("Credenciales incorrectas. Intenta nuevamente.");
+      }
+    });
+  </script>
+</body>
+</html>
