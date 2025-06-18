@@ -5,6 +5,73 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Panel de Administración</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Estilos internos para los detalles y secciones */
+    .seccion-quejas {
+      margin-bottom: 30px;
+    }
+    .seccion-quejas h2 {
+      border-bottom: 2px solid #aad4ff;
+      padding-bottom: 5px;
+      margin-bottom: 15px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #003366;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    th, td {
+      border: 1px solid #aad4ff;
+      padding: 6px;
+      vertical-align: top;
+      font-size: 14px;
+    }
+    td textarea, td select {
+      width: 100%;
+      font-size: 13px;
+      padding: 4px;
+      border-radius: 5px;
+      border: none;
+      resize: vertical;
+      background: #002a55;
+      color: #fff;
+    }
+    button.guardar {
+      background-color: #aad4ff;
+      border: none;
+      color: #003366;
+      padding: 5px 10px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+    button.guardar:hover {
+      background-color: #8bbde6;
+    }
+    .btn-cerrar-sesion {
+      display: inline-block;
+      margin-bottom: 20px;
+      background: #aad4ff;
+      color: #003366;
+      padding: 8px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .btn-cerrar-sesion:hover {
+      background: #8bbde6;
+      color: #001F4D;
+    }
+    .categoria {
+      font-weight: bold;
+      font-size: 15px;
+      margin-bottom: 5px;
+      color: #aad4ff;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -14,28 +81,11 @@
 
     <h1>Panel de Administración</h1>
 
-    <nav class="nav-links">
-      <a href="index.html">Enviar Queja</a> |
-      <a href="consulta.html">Consultar Queja</a>
-    </nav>
+    <a href="index.html" class="btn-cerrar-sesion">Cerrar Sesión</a>
 
-    <table id="tablaDenuncias">
-      <thead>
-        <tr>
-          <th>Folio</th>
-          <th>Categoría</th>
-          <th>Descripción</th>
-          <th>Nombre</th>
-          <th>Fecha</th>
-          <th>Estatus</th>
-          <th>Comentarios</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Aquí se cargarán las quejas -->
-      </tbody>
-    </table>
+    <div id="contenidoAdmin">
+      <!-- Aquí se cargarán las quejas agrupadas -->
+    </div>
   </div>
 
   <footer>
