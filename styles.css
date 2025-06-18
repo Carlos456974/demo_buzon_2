@@ -9,11 +9,12 @@ body {
 .container {
   max-width: 600px;
   background-color: #003366;
-  margin: 120px auto 80px auto;
-  padding: 20px 30px;
+  margin: 100px auto 80px auto; /* Ajustado para mejor acomodo del logo */
+  padding: 100px 30px 30px 30px; /* Padding top para que el logo no tape contenido */
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0,0,0,0.7);
   position: relative;
+  min-height: 400px; /* Opcional para dar espacio mínimo */
 }
 
 .logo-container {
@@ -90,6 +91,7 @@ footer {
 footer a {
   color: #aad4ff;
   text-decoration: none;
+  margin: 0 10px;
 }
 
 footer a:hover {
