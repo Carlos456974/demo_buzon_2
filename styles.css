@@ -26,6 +26,7 @@ body {
   padding: 0;
   width: 150px;
   height: auto;
+  z-index: 10;
 }
 
 .logo-container img {
@@ -91,7 +92,7 @@ footer {
 footer a {
   color: #aad4ff;
   text-decoration: none;
-  margin: 0 10px;
+  margin: 0 10px; /* separación entre enlaces */
 }
 
 footer a:hover {
