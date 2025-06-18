@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Denuncia Violencia de Género - DSG Transportes</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container" style="max-width: 650px;">
+    <div class="logo-container">
+      <img src="logo.jpg" alt="Logo DSG Transportes" />
+    </div>
+    <h1>Denuncia de Violencia de Género</h1>
+    <p>
+      Por tu seguridad y para el correcto seguimiento de tu denuncia, es necesario que proporciones tus datos reales. 
+      Toda la información será tratada con estricta confidencialidad según la normatividad de CEMEFI.
+    </p>
+    <form id="formViolencia">
+      <label for="nombre">Nombre completo</label>
+      <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo" />
+
+      <label for="telefono">Teléfono de contacto</label>
+      <input type="text" id="telefono" name="telefono" required placeholder="Tu número telefónico" />
+
+      <label for="descripcion">Descripción detallada de la situación</label>
+      <textarea id="descripcion" name="descripcion" required placeholder="Explica lo ocurrido"></textarea>
+
+      <label>
+        <input type="checkbox" id="aviso" name="aviso" required />
+        Acepto el <a href="aviso.html" target="_blank">Aviso de Privacidad</a>
+      </label>
+
+      <button type="submit">Enviar Denuncia</button>
+    </form>
+    <div id="confirmation" style="margin-top:15px;"></div>
+  </div>
+
+  <footer>
+    <a href="aviso.html" target="_blank">Aviso de Privacidad</a>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Cargar datos guardados si existen
+      const saved = JSON.parse(localStorage.getItem("denunciaViolencia"));
+      if (saved) {
+        document.getElementById("nombre").value = saved.nombre || "";
+        document.getElementById("descripcion").value = saved.descripcion || "";
+      }
+    });
+
+    const form = document.getElementById("formViolencia");
+    const confirmation = document.getElementById("confirmation");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const nombre = form.nombre.value.trim();
+      const telefono = form.telefono.value.trim();
+      const descripcion = form.descripcion.value.trim();
+      const avisoAceptado = form.aviso.checked;
+
+      if (!nombre || !telefono || !descripcion) {
+        alert("Por favor llena todos los campos.");
+        return;
+      }
+
+      if (!avisoAceptado) {
+        alert("Debes aceptar el aviso de privacidad.");
+        return;
+      }
+
+      const folio = Date.now() + Math.floor(Math.random() * 1000);
+      const fecha = new Date().toLocaleString();
+
+      const denuncia = {
+        folio,
+        descripcion,
+        correo: nombre,
+        telefono,
+        anonima: false,
+        fecha,
+        categoria: "Violencia de género",
+        status: "Pendiente",
+        comentarios: []
+      };
+
+      let denuncias = JSON.parse(localStorage.getItem("denuncias") || "[]");
+      denuncias.push(denuncia);
+      localStorage.setItem("denuncias", JSON.stringify(denuncias));
+      localStorage.removeItem("denunciaViolencia");
+
+      confirmation.style.color = "#003366";
+      confirmation.style.backgroundColor = "#aad4ff";
+      confirmation.style.padding = "10px";
+      confirmation.style.borderRadius = "5px";
+      confirmation.textContent = `Denuncia enviada con éxito. Tu folio es: ${folio}. Guarda este folio para consultar el estatus.`;
+
+      form.reset();
+    });
+  </script>
+</body>
+</html>
