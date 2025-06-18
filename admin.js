@@ -1,6 +1,14 @@
 // admin.js
 
-// Quejas de demo para cargar inicialmente (si no hay datos guardados)
+const ESTATUS = ["Pendiente de revisión", "En revisión", "Finalizada"];
+const CATEGORIAS = [
+  "Violencia de género",
+  "Maltrato de jefe",
+  "Problema con compañero",
+  "Queja general"
+];
+
+// Demo inicial con 4 quejas
 const quejasDemo = [
   {
     folio: "Q-0001",
@@ -40,53 +48,47 @@ const quejasDemo = [
   }
 ];
 
-// Claves y categorías
-const ESTATUS = ["Pendiente de revisión", "En revisión", "Finalizada"];
-const CATEGORIAS = ["Violencia de género", "Maltrato de jefe", "Problema con compañero", "Queja general"];
-
+// Carga quejas desde localStorage o crea demo
 function cargarQuejas() {
-  // Cargar quejas desde localStorage o usar demo
-  let quejas = JSON.parse(localStorage.getItem("quejas")) || quejasDemo;
-  // Guardar demo en localStorage para persistencia
-  localStorage.setItem("quejas", JSON.stringify(quejas));
-  return quejas;
+  let q = JSON.parse(localStorage.getItem("quejas"));
+  if (!q || q.length === 0) {
+    localStorage.setItem("quejas", JSON.stringify(quejasDemo));
+    return quejasDemo;
+  }
+  return q;
 }
 
+// Guarda quejas en localStorage
 function guardarQuejas(quejas) {
   localStorage.setItem("quejas", JSON.stringify(quejas));
 }
 
-// Crear tabla para una lista de quejas
+// Crea tabla para las quejas recibidas
 function crearTablaQuejas(quejas) {
   const tabla = document.createElement("table");
   const thead = document.createElement("thead");
-  const headerRow = document.createElement("tr");
-  ["Folio", "Categoría", "Descripción", "Nombre", "Fecha", "Estatus", "Comentarios", "Acciones"].forEach(text => {
+  const filaHead = document.createElement("tr");
+
+  ["Folio", "Descripción", "Nombre", "Fecha", "Estatus", "Comentarios", "Acciones"].forEach(texto => {
     const th = document.createElement("th");
-    th.textContent = text;
-    headerRow.appendChild(th);
+    th.textContent = texto;
+    filaHead.appendChild(th);
   });
-  thead.appendChild(headerRow);
+  thead.appendChild(filaHead);
   tabla.appendChild(thead);
 
   const tbody = document.createElement("tbody");
 
-  quejas.forEach((q, index) => {
+  quejas.forEach((q, idx) => {
     const tr = document.createElement("tr");
     if (q.categoria === "Violencia de género") {
-      tr.style.backgroundColor = "#ff6666"; // rojo para violencia de género
-      tr.style.color = "#000";
+      tr.classList.add("violencia");
     }
 
     // Folio
     const tdFolio = document.createElement("td");
     tdFolio.textContent = q.folio;
     tr.appendChild(tdFolio);
-
-    // Categoría
-    const tdCategoria = document.createElement("td");
-    tdCategoria.textContent = q.categoria;
-    tr.appendChild(tdCategoria);
 
     // Descripción
     const tdDescripcion = document.createElement("td");
@@ -103,25 +105,25 @@ function crearTablaQuejas(quejas) {
     tdFecha.textContent = q.fecha;
     tr.appendChild(tdFecha);
 
-    // Estatus (select para cambiar)
+    // Estatus (select editable)
     const tdEstatus = document.createElement("td");
-    const selectEstatus = document.createElement("select");
+    const select = document.createElement("select");
     ESTATUS.forEach(e => {
       const option = document.createElement("option");
       option.value = e;
       option.textContent = e;
       if (q.estatus === e) option.selected = true;
-      selectEstatus.appendChild(option);
+      select.appendChild(option);
     });
-    tdEstatus.appendChild(selectEstatus);
+    tdEstatus.appendChild(select);
     tr.appendChild(tdEstatus);
 
     // Comentarios (textarea editable)
     const tdComentarios = document.createElement("td");
-    const textareaComentarios = document.createElement("textarea");
-    textareaComentarios.value = q.comentarios;
-    textareaComentarios.rows = 3;
-    tdComentarios.appendChild(textareaComentarios);
+    const textarea = document.createElement("textarea");
+    textarea.value = q.comentarios || "";
+    textarea.rows = 3;
+    tdComentarios.appendChild(textarea);
     tr.appendChild(tdComentarios);
 
     // Acciones (botón guardar)
@@ -131,22 +133,21 @@ function crearTablaQuejas(quejas) {
     btnGuardar.className = "guardar";
 
     btnGuardar.addEventListener("click", () => {
-      // Validación especial para violencia de género: nombre obligatorio
+      // Validación violencia género: nombre obligatorio
       if (q.categoria === "Violencia de género" && (!q.nombre || q.nombre.trim() === "")) {
         alert("Para quejas de Violencia de género el nombre es obligatorio.");
         return;
       }
-
       // Actualizar datos
-      q.estatus = selectEstatus.value;
-      q.comentarios = textareaComentarios.value.trim();
+      q.estatus = select.value;
+      q.comentarios = textarea.value.trim();
 
-      // Guardar en localStorage
-      quejas[index] = q;
+      // Guardar cambios
+      const quejas = cargarQuejas();
+      quejas[idx] = q;
       guardarQuejas(quejas);
 
       alert("Queja actualizada correctamente.");
-      // Recargar para reflejar cambios
       mostrarQuejas();
     });
 
@@ -160,6 +161,7 @@ function crearTablaQuejas(quejas) {
   return tabla;
 }
 
+// Mostrar quejas agrupadas por estatus y categoría
 function mostrarQuejas() {
   const contenedor = document.getElementById("contenidoAdmin");
   contenedor.innerHTML = "";
@@ -168,21 +170,21 @@ function mostrarQuejas() {
 
   ESTATUS.forEach(status => {
     const seccion = document.createElement("div");
-    seccion.className = "seccion-quejas";
+    seccion.classList.add("seccion-quejas");
 
     const titulo = document.createElement("h2");
     titulo.textContent = status;
     seccion.appendChild(titulo);
 
     CATEGORIAS.forEach(cat => {
-      const quejasFiltradas = quejas.filter(q => q.estatus === status && q.categoria === cat);
-      if (quejasFiltradas.length > 0) {
+      const qFiltradas = quejas.filter(q => q.estatus === status && q.categoria === cat);
+      if (qFiltradas.length > 0) {
         const tituloCat = document.createElement("div");
-        tituloCat.className = "categoria";
+        tituloCat.classList.add("categoria");
         tituloCat.textContent = cat;
         seccion.appendChild(tituloCat);
 
-        const tabla = crearTablaQuejas(quejasFiltradas);
+        const tabla = crearTablaQuejas(qFiltradas);
         seccion.appendChild(tabla);
       }
     });
@@ -191,14 +193,12 @@ function mostrarQuejas() {
   });
 }
 
-// Al cargar la página
+// Validar sesión simple
 window.addEventListener("load", () => {
-  // Validar que admin esté logueado (por seguridad básica)
   if (localStorage.getItem("adminLogueado") !== "true") {
-    alert("No autorizado. Por favor, inicie sesión.");
+    alert("No autorizado. Por favor, inicia sesión.");
     window.location.href = "login.html";
     return;
   }
-
   mostrarQuejas();
 });
