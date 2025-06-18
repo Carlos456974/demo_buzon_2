@@ -11,7 +11,14 @@
     <div class="logo-container">
       <img src="logo.jpg" alt="Logo" />
     </div>
+
     <h1>Buzón de Quejas</h1>
+
+    <nav class="nav-links">
+      <a href="panel.html">Panel de Administrador</a> |
+      <a href="consulta.html">Consultar Queja</a>
+    </nav>
+
     <form id="formulario">
       <label for="categoria">Categoría de la queja</label>
       <select id="categoria" name="categoria" required>
@@ -22,13 +29,13 @@
         <option value="Queja general">Queja general</option>
       </select>
 
-      <label for="nombre">Nombre (opcional, pero necesario si no quieres ser anónimo)</label>
+      <label for="nombre">Nombre (opcional, si no quieres ser anónimo)</label>
       <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" />
 
       <label for="descripcion">Descripción de la queja</label>
       <textarea id="descripcion" name="descripcion" placeholder="Escribe los detalles de la queja" required></textarea>
 
-      <label style="color: #aad4ff; font-weight: normal;">
+      <label>
         <input type="checkbox" name="aviso" required />
         Acepto el aviso de privacidad
       </label>
@@ -40,11 +47,10 @@
   </div>
 
   <footer>
-    <a href="aviso.html" target="_blank">Aviso de Privacidad</a> |
-    <a href="login.html">Panel Administrador</a> |
-    <a href="consulta.html">Consulta tu Queja</a>
+    <a href="aviso.html" target="_blank">Aviso de Privacidad</a>
   </footer>
 
   <script src="script.js"></script>
 </body>
 </html>
+
