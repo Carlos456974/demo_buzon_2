@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Panel de Administración - DSG Transportes</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container" style="max-width: 900px; margin-top: 100px;">
+    <div class="logo-container">
+      <img src="logo.jpg" alt="Logo DSG Transportes" />
+    </div>
+    <h1>Panel de Administración</h1>
+    <button id="logoutBtn" style="margin-bottom: 15px; width: 120px;">Cerrar sesión</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Folio</th>
+          <th>Fecha</th>
+          <th>Categoría</th>
+          <th>Descripción</th>
+          <th>Anónima</th>
+          <th>Estatus</th>
+          <th>Comentarios Administrador</th>
+        </tr>
+      </thead>
+      <tbody id="denunciasTableBody"></tbody>
+    </table>
+  </div>
+
+  <footer>
+    <a href="aviso.html" target="_blank">Aviso de Privacidad</a>
+  </footer>
+
+  <script src="admin.js"></script>
+</body>
+</html>
