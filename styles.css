@@ -151,3 +151,55 @@ select.estatusSelect {
   display: none;
   text-align: center;
 }
+
+/* ------------------- */
+/* Estilos para detalle de queja */
+
+#detalleQueja {
+  background-color: #002a55;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+  font-size: 14px;
+  color: #aad4ff;
+}
+
+#detalleQueja h2 {
+  color: #aad4ff;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+#detalleQueja p {
+  margin-bottom: 10px;
+}
+
+#detalleQueja textarea,
+#detalleQueja select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+  background-color: #003366;
+  color: #fff;
+  resize: vertical;
+}
+
+#detalleQueja button {
+  background-color: #aad4ff;
+  border: none;
+  color: #003366;
+  padding: 10px 15px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+#detalleQueja button:hover {
+  background-color: #8bbde6;
+}
